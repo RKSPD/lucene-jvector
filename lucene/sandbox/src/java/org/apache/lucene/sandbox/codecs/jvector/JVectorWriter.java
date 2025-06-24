@@ -49,7 +49,10 @@ import org.apache.lucene.util.IOUtils;
 import org.apache.lucene.util.RamUsageEstimator;
 import org.apache.lucene.util.hnsw.CloseableRandomVectorScorerSupplier;
 
-/** This class is responsible for writing the index */
+/**
+ * Writes vector data using the JVector format. This class is responsible for serializing vectors
+ * and building index structures such as graphs or quantization data, during the indexing process.
+ */
 public class JVectorWriter extends KnnVectorsWriter {
 
   private static final long SHALLOW_RAM_BYTES_USED =
@@ -382,7 +385,11 @@ public class JVectorWriter extends KnnVectorsWriter {
     pqv.write(out);
   }
 
-  /** This class defines the metadata that is used for JVector */
+  /**
+   * Metadata associated with a single field's vector index. Includes information such as offsets,
+   * lengths, encoding types, and other field-specific indexing data required during read and write
+   * phases.
+   */
   public static class VectorIndexFieldMetadata {
     int fieldNumber;
     VectorEncoding vectorEncoding;

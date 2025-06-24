@@ -25,7 +25,11 @@ import org.apache.lucene.codecs.KnnVectorsWriter;
 import org.apache.lucene.index.SegmentReadState;
 import org.apache.lucene.index.SegmentWriteState;
 
-/** This is the JVectorFormat that plugs into luceneutil getCodec */
+/**
+ * A Lucene {@link KnnVectorsFormat} implementation for the JVector indexing format. This format
+ * defines how vectors are stored, searched, and laid out on disk for maximum performance and
+ * flexibility.
+ */
 public class JVectorFormat extends KnnVectorsFormat {
   public static final String NAME = "JVectorFormat";
   public static final String META_CODEC_NAME = "JVectorVectorsFormatMeta";
@@ -170,6 +174,8 @@ public class JVectorFormat extends KnnVectorsFormat {
       // since we don't want BPV to decrease
       compressedBytes = 100;
     } else if (originalDimension <= 768) {
+      // lucene-jvector: using 64 as an anecdotal good value for cohere-wikipeda-768 testing for
+      // recall/latency
       // allow BPV to increase linearly up to 192
       compressedBytes = 64; // (int) (originalDimension * 0.25);
     } else if (originalDimension <= 1536) {

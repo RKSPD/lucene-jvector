@@ -27,7 +27,11 @@ import java.io.IOException;
 import org.apache.lucene.index.FloatVectorValues;
 import org.apache.lucene.search.VectorScorer;
 
-/** This contains the view */
+/**
+ * Provides access to float vector values stored in the JVector format. This class implements {@link
+ * FloatVectorValues} and enables iteration over float-based vector fields at search time. It may
+ * wrap raw or quantized vectors and expose them to Lucene's search and scoring mechanisms.
+ */
 public class JVectorFloatVectorValues extends FloatVectorValues {
   private static final VectorTypeSupport VECTOR_TYPE_SUPPORT =
       VectorizationProvider.getInstance().getVectorTypeSupport();
