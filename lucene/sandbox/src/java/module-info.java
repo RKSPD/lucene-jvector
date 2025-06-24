@@ -16,13 +16,16 @@
  */
 
 /** Various third party contributions and new ideas */
+@SuppressWarnings("requires-automatic") // jvector is an automatic module
 module org.apache.lucene.sandbox {
   requires org.apache.lucene.core;
   requires org.apache.lucene.queries;
   requires org.apache.lucene.facet;
+  requires jvector;
 
   exports org.apache.lucene.payloads;
   exports org.apache.lucene.sandbox.codecs.faiss;
+  exports org.apache.lucene.sandbox.codecs.jvector;
   exports org.apache.lucene.sandbox.codecs.idversion;
   exports org.apache.lucene.sandbox.codecs.quantization;
   exports org.apache.lucene.sandbox.document;
