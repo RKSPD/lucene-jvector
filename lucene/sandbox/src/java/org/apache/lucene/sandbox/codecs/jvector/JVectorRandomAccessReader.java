@@ -28,12 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.lucene.store.IndexInput;
 import org.apache.lucene.util.IOUtils;
 
-/**
- * Provides random access to vector data stored in the JVector format. Implements {@link
- * RandomAccessReader} to support efficient retrieval of individual vectors by document ID or
- * ordinal. This class is used during query evaluation and rescoring to fetch exact vectors or
- * quantized representations.
- */
+/** This is the implementation of the JVectorRandomAccessReader */
 public class JVectorRandomAccessReader implements RandomAccessReader {
   private final byte[] internalBuffer = new byte[Long.BYTES];
   private final byte[] internalFloatBuffer = new byte[Float.BYTES];
@@ -67,6 +62,7 @@ public class JVectorRandomAccessReader implements RandomAccessReader {
     return buffer.get();
   }
 
+  // TODO: bring back to override when upgrading jVector again
   @Override
   public long readLong() throws IOException {
     return indexInputDelegate.readLong();

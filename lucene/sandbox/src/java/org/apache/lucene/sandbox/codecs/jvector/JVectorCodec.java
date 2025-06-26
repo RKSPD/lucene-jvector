@@ -22,11 +22,7 @@ import org.apache.lucene.codecs.FilterCodec;
 import org.apache.lucene.codecs.KnnVectorsFormat;
 import org.apache.lucene.codecs.lucene103.Lucene103Codec;
 
-/**
- * A custom {@link FilterCodec} that wraps the default Lucene codec with JVector vector indexing
- * support. This codec registers the {@link JVectorFormat} as the k-NN vectors format used during
- * indexing and searching.
- */
+/** This is the definition of the JVectorCodec */
 public class JVectorCodec extends FilterCodec {
 
   public static final String CODEC_NAME = "JVectorCodec";

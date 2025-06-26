@@ -57,7 +57,7 @@ public class JVectorReader extends KnnVectorsReader {
   public static final Double DEFAULT_QUERY_SIMILARITY_THRESHOLD = 0.0;
   public static final Double DEFAULT_QUERY_RERANK_FLOOR = 0.0;
   public static final Boolean DEFAULT_QUERY_USE_PRUNING = false;
-  public static final int DEFAULT_OVER_QUERY_FACTOR = 2;
+  public static final int DEFAULT_OVER_QUERY_FACTOR = 3;
 
   private final FieldInfos fieldInfos;
   private final String baseDataFileName;
