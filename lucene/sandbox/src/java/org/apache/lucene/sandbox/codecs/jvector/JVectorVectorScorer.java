@@ -24,7 +24,12 @@ import org.apache.lucene.index.KnnVectorValues;
 import org.apache.lucene.search.DocIdSetIterator;
 import org.apache.lucene.search.VectorScorer;
 
-/** This helps the vector scorer figure out the k-nn */
+/**
+ * A VectorScorer that computes similarity scores between a target query vector and document vectors
+ * using JVector's float vector representation. Uses a VectorSimilarityFunction to compare the
+ * target vector with each document vector, and iterates over candidates via the associated
+ * DocIndexIterator.
+ */
 public class JVectorVectorScorer implements VectorScorer {
   private final JVectorFloatVectorValues floatVectorValues;
   private final KnnVectorValues.DocIndexIterator docIndexIterator;

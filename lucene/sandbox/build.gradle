@@ -25,28 +25,16 @@ java {
   modularity.inferModulePath = true
 }
 
-//dependencies {
-//  moduleApi project(':lucene:core')
-//  moduleApi project(':lucene:queries')
-//  moduleApi project(':lucene:facet')
-//  moduleTestImplementation project(':lucene:test-framework')
-//
-//  // https://mvnrepository.com/artifact/io.github.jbellis/jvector
-//  moduleImplementation group: 'io.github.jbellis', name: 'jvector', version: '4.0.0-beta.6'
-//}
-
 dependencies {
   moduleApi project(':lucene:core')
   moduleApi project(':lucene:queries')
   moduleApi project(':lucene:facet')
   moduleTestImplementation project(':lucene:test-framework')
 
-  // Use jvector but exclude the older SLF4J it brings
   moduleImplementation('io.github.jbellis:jvector:4.0.0-beta.6') {
     exclude group: 'org.slf4j', module: 'slf4j-api'
   }
 
-  // Add the SLF4J version consistent with the rest of Lucene
   moduleImplementation 'org.slf4j:slf4j-api:2.0.17'
 }
 

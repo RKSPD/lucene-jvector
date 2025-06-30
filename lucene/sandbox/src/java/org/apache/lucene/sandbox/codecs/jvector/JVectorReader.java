@@ -40,24 +40,36 @@ import org.apache.lucene.codecs.hnsw.FlatVectorScorerUtil;
 import org.apache.lucene.codecs.hnsw.FlatVectorsFormat;
 import org.apache.lucene.codecs.hnsw.FlatVectorsReader;
 import org.apache.lucene.codecs.lucene99.Lucene99FlatVectorsFormat;
-import org.apache.lucene.index.*;
+import org.apache.lucene.index.ByteVectorValues;
+import org.apache.lucene.index.FieldInfo;
+import org.apache.lucene.index.FieldInfos;
+import org.apache.lucene.index.FloatVectorValues;
+import org.apache.lucene.index.IndexFileNames;
+import org.apache.lucene.index.SegmentReadState;
 import org.apache.lucene.search.KnnCollector;
-import org.apache.lucene.store.*;
+import org.apache.lucene.store.ChecksumIndexInput;
+import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.Bits;
 import org.apache.lucene.util.IOUtils;
 
-/** This defines the index reader and search functionality */
+/**
+ * A KnnVectorsReader implementation for the JVector codec that supports reading and searching
+ * on-disk graph-based vector indices and optional product quantized vectors. Loads per-field vector
+ * metadata and exposes float vector values, similarity search, and integrity checking. Uses
+ * GraphSearcher with optional reranking for approximate or exact search. Falls back to Lucene's
+ * FlatVectorsReader during merge operations.
+ */
 public class JVectorReader extends KnnVectorsReader {
   private static final VectorTypeSupport VECTOR_TYPE_SUPPORT =
       VectorizationProvider.getInstance().getVectorTypeSupport();
   private static final FlatVectorsFormat FLAT_VECTORS_FORMAT =
       new Lucene99FlatVectorsFormat(FlatVectorScorerUtil.getLucene99FlatVectorsScorer());
 
-  // TODO: The following are default values, make these tunable
+  // TODO: Expose these values with JVectorFormat constructor args
   public static final Double DEFAULT_QUERY_SIMILARITY_THRESHOLD = 0.0;
   public static final Double DEFAULT_QUERY_RERANK_FLOOR = 0.0;
   public static final Boolean DEFAULT_QUERY_USE_PRUNING = false;
-  public static final int DEFAULT_OVER_QUERY_FACTOR = 2;
+  public static final int DEFAULT_OVER_QUERY_FACTOR = 3;
 
   private final FieldInfos fieldInfos;
   private final String baseDataFileName;
@@ -129,8 +141,6 @@ public class JVectorReader extends KnnVectorsReader {
     if (knnCollector instanceof JVectorKnnCollector) {
       jvectorKnnCollector = (JVectorKnnCollector) knnCollector;
     } else {
-      // TODO: Make these values tunable and have default values on JVectorFormat or JVectorReader
-      // class files
       jvectorKnnCollector =
           new JVectorKnnCollector(
               knnCollector,
@@ -182,7 +192,7 @@ public class JVectorReader extends KnnVectorsReader {
   @Override
   public void search(String field, byte[] target, KnnCollector knnCollector, Bits acceptDocs)
       throws IOException {
-    // TODO: implement this once basic search works
+    // TODO
   }
 
   @Override

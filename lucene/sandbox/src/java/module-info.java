@@ -16,7 +16,7 @@
  */
 
 /** Various third party contributions and new ideas */
-@SuppressWarnings("requires-automatic") // jvector is an automatic module
+@SuppressWarnings("requires-automatic")
 module org.apache.lucene.sandbox {
   requires org.apache.lucene.core;
   requires org.apache.lucene.queries;

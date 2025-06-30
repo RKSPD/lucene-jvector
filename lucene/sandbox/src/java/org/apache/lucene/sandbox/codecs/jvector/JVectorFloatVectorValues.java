@@ -27,7 +27,11 @@ import java.io.IOException;
 import org.apache.lucene.index.FloatVectorValues;
 import org.apache.lucene.search.VectorScorer;
 
-/** This contains the view */
+/**
+ * A {@link FloatVectorValues} implementation backed by a JVector {@link OnDiskGraphIndex}. Provides
+ * access to vector data and iteration over document vectors stored on disk. Supports both Lucene's
+ * float[] access API and JVector's native {@link VectorFloat} API.
+ */
 public class JVectorFloatVectorValues extends FloatVectorValues {
   private static final VectorTypeSupport VECTOR_TYPE_SUPPORT =
       VectorizationProvider.getInstance().getVectorTypeSupport();
