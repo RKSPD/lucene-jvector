@@ -44,5 +44,6 @@ module org.apache.lucene.sandbox {
   provides org.apache.lucene.codecs.PostingsFormat with
       org.apache.lucene.sandbox.codecs.idversion.IDVersionPostingsFormat;
   provides org.apache.lucene.codecs.KnnVectorsFormat with
-      org.apache.lucene.sandbox.codecs.faiss.FaissKnnVectorsFormat;
+      org.apache.lucene.sandbox.codecs.faiss.FaissKnnVectorsFormat,
+      org.apache.lucene.sandbox.codecs.jvector.JVectorFormat;
 }
